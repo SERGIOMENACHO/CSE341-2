@@ -1,2 +1,1 @@
-# CSE341-2
-Lesson 5 - 8
+# cse-341-sergio
