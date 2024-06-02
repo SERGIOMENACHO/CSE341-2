@@ -5,8 +5,8 @@ const doc = {
     title: "Events API Documentation",
     description: "Description",
   },
-  host: "localhost:3000",
-  schemes: ["http"],
+  host: "cse341-2-aaog.onrender.com",
+  schemes: ["https"],
 };
 
 const outputFile = "./swagger.json";
