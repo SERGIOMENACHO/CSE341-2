@@ -9,9 +9,9 @@ const doc = {
   schemes: ["https"],
 };
 
-const outputFile = "./swagger.json";
-const endpointFiles = ["./routes/index.js"];
+const outputFile = './swagger.json';
+const endpointsFiles = ['./routes/index.js'];
 
-swaggerAutogen(outputFile, endpointFiles).then(() => {
-  require("./server.js");
-});
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+    require('./server.js')
+})
