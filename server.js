@@ -14,7 +14,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDoc = require('./swagger.json');
 
 // connect to the mongoDB datase
-mongoose.connect(process.env.mongodb_uri,
+mongoose.connect(process.env.MONGO_URI,
 {useNewUrlParser: true}, (err, res)=> {
     if (err) {
         console.log('Connection failed: ' + err);
