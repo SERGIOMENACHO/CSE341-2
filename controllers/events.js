@@ -26,6 +26,9 @@ const getOneEvent = async (req, res, next) => {
 
 // POST
 const createEvent = async (req, res, next) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("You must use a valid event id to update.");
+  }
   const event = new Event({
     title: req.body.title,
     description: req.body.description,

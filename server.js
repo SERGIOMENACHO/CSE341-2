@@ -31,8 +31,30 @@ app
       "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
     );
     next();
+  });
+
+require("./config/passport");
+
+app.use(
+  session({
+    secret: "test",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
   })
-  .use("/", require("./routes"));
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/", require("./routes"));
+
+process.on("uncaughtException", (err, origin) => {
+  console.log(
+    process.stderr.fd,
+    `Caught exception: ${err}\n` + `Exception origin: ${origin}`
+  );
+});
 
 app.listen(port, () => {
   console.log("Listening on port " + port);
