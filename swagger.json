@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Events API Documentation",
+    "description": "Description",
+    "version": "1.0.0"
   },
   "host": "cse341-2-aaog.onrender.com",
   "basePath": "/",
@@ -11,7 +11,7 @@
     "https"
   ],
   "paths": {
-    "/events": {
+    "/events/events": {
       "get": {
         "description": "",
         "responses": {
@@ -24,7 +24,7 @@
         }
       }
     },
-    "/events/{id}": {
+    "/events/events/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -119,7 +119,7 @@
         }
       }
     },
-    "/events/create": {
+    "/events/events/create": {
       "post": {
         "description": "",
         "parameters": [
@@ -160,6 +160,49 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "500": {
             "description": "Internal Server Error"
