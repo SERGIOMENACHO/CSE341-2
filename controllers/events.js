@@ -26,9 +26,6 @@ const getOneEvent = async (req, res, next) => {
 
 // POST
 const createEvent = async (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    res.status(400).json("You must use a valid event id to update.");
-  }
   const event = new Event({
     title: req.body.title,
     description: req.body.description,
@@ -94,7 +91,7 @@ const deleteEvent = async (req, res, next) => {
       event
         .deleteOne({ _id: eventId })
         .then((response) => {
-          res.status(200).json({ message: "Contact Deleted successfully" });
+          res.status(200).json({ message: "Event Deleted successfully" });
         })
         .catch((error) => {
           res.status(500).json({ error: error });

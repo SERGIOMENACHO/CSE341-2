@@ -1,16 +1,62 @@
-const routes = require("express").Router();
+const express = require("express");
+const router = express.Router();
 const passport = require("passport");
 const controller = require("../controllers/auth");
 
-routes.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/events",
-    failureRedirect: "/auth/login",
-    successFlash: true,
-  })
-);
+router.get("/home", (req, res, next) => {
+  const form =
+    '<h1>Logged in</h1>\
+            <br><a href="/events/events">Check the events List</a>\
+            <br><br><a href="/logout">Log Out</a>';
+  res.send(form);
+});
 
-routes.post("/register", controller.register);
+router.get("/login", (req, res, next) => {
+  console.log(req.isAuthenticated());
+  const form =
+    '<h1>Login Page</h1><form method="POST" action="/login">\
+    Enter Email:<br><input type="email" name="email">\
+    <br>Enter Password:<br><input type="password" name="password">\
+    <br><br><input type="submit" value="Submit"></form>';
+  res.send(form);
+});
 
-module.exports = routes;
+router.get("/register", (req, res, next) => {
+  const form =
+    '<h1>Register Page</h1><form method="post" action="/register">\
+    Enter name:<br><input type="text" name="name">\
+    <br>Enter Email:<br><input type="email" name="email">\
+    <br>Enter Password:<br><input type="password" name="password">\
+    <br><br><input type="submit" value="Submit"></form>';
+  res.send(form);
+});
+
+router.post("/register", controller.register);
+
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", function (err, user, info) {
+    if (err) {
+      return res.status(400).json({ errors: err });
+    }
+    if (!user) {
+      return res.status(400).json({ errors: "No user found" });
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return res.status(400).json({ errors: "this is my" + err });
+      }
+      res.redirect("/home");
+    });
+  })(req, res, next);
+});
+
+router.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
+  });
+});
+
+module.exports = router;
